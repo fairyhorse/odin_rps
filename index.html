@@ -9,14 +9,15 @@
 <body>
     <div class="form">
         <form action="" id="form-move">
-            <label for="input-move">Type rock/paper/scissors</label><br>
-            <input type="text" name="" id="input-move">
-            <button type="submit">Submit</button>
+            <label class="form-label" for="input-move">Type in rock/paper/scissors</label>
+            <div class="form-container">
+                <button type="button" id="restart">Restart</button>
+                <input type="text" name="" id="input-move">
+                <button type="submit" id="submit">Submit</button>
+            </div>
         </form>
     </div>
-    
     <hr>
-
     <div class="container">
         <div class="stats-container">
             <div class="stats">
@@ -31,7 +32,6 @@
             <span id="output">Outcome</span>
         </div>
     </div>
-
     <script src="rps.js"></script>
 </body>
 </html>

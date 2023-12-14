@@ -1,5 +1,7 @@
 const form = document.querySelector('#form-move');
 const input = document.querySelector('#input-move');
+const submit = document.querySelector('#submit');
+const restart = document.querySelector('#restart');
 const player = document.querySelector('#player')
 const computer = document.querySelector('#computer');
 const playerScoreText = document.querySelector('#player-score');
@@ -8,29 +10,9 @@ const output = document.querySelector('#output');
 
 const moves = [ 'paper', 'rock', 'scissors'];
 
-form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const item = input.value.toLowerCase();
-    let onlyLettersAndNumbers = (str) => Boolean(str.match(/^[a-zA-Z]+$/));
-
-    if (!moves.includes(item) || !onlyLettersAndNumbers(item) || item === '') {
-        input.value = '';
-        alert('ENTER A VALID ITEM NAME');
-    } else {
-        player.innerText = item;
-        input.value = '';
-        playRound(player.innerText, getComputerSelection());
-    }
-})
-
-function game(rounds) {
-    let getComputerSelection = () => moves[Math.floor(Math.random() * 3)];
-    let playerScore = 0;
-    let computerScore = 0;
-    
 
 
-    function playRound(playerSelection, computerSelection) {
+function playRound(playerSelection, computerSelection) {
         computer.innerText = computerSelection;
     
         // paper -> rock -> scissors -> paper
@@ -48,29 +30,61 @@ function game(rounds) {
         // ======================================================================================================
     
         let diff = moves.indexOf(playerSelection) - moves.indexOf(computerSelection);
+        let plScore = 0;
+        let compScore = 0;
         
         if (playerSelection == computerSelection){
             output.innerText = "It's a tie!";
         } else if (diff == -1 || diff == 2){
             output.innerText = "You win!";
-            playerScore++;
-            playerScoreText.innerText = playerScore;
+            plScore = 1;
     
         } else {
             output.innerText = "You lose!";
-            computerScore++;
-            computerScoreText.innerText = computerScore;
+            compScore = 1;
         }
+
+        return [plScore, compScore]
     }
 
-    if (playerScore == rounds || computerScore == rounds) {
-        if (playerScore > computerScore){
-            output.innerText = "YOU WON!";
+
+function game(rounds) {
+    let getComputerSelection = () => moves[Math.floor(Math.random() * 3)];
+    let playerScore = 0;
+    let computerScore = 0;
+
+    restart.addEventListener("click", () => location.reload())
+    
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const item = input.value.toLowerCase();
+        let onlyLettersAndNumbers = (str) => Boolean(str.match(/^[a-zA-Z]+$/));
+    
+        if (!moves.includes(item) || !onlyLettersAndNumbers(item) || item === '') {
+            input.value = '';
+            alert('ENTER A VALID ITEM NAME');
         } else {
-            output.innerText = "YOU LOST!";
+            player.innerText = item;
+            input.value = '';
+            
+            let scores = playRound(player.innerText, getComputerSelection(), playerScore, computerScore);
+            
+            playerScore += scores[0];
+            playerScoreText.innerText = playerScore;
+            computerScore += scores[1];
+            computerScoreText.innerText = computerScore;
+            
+            if (playerScore == rounds || computerScore == rounds) {
+                if (playerScore > computerScore){
+                    output.innerText = "YOU WON!";
+                } else {
+                    output.innerText = "YOU LOST!";
+                }
+                input.disabled = true;
+                submit.disabled = true;
+            }
         }
-    }
-
+    })
 }
 
 game(5);

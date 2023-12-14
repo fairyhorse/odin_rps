@@ -13,3 +13,10 @@
     flex-direction: column;
     align-items: center;
 }
+
+
+#form-move {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
