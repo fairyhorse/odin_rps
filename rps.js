@@ -1,6 +1,7 @@
 const form = document.querySelector('#form-move');
-const input = document.querySelector('#input-move');
-const submit = document.querySelector('#submit');
+const rock = document.querySelector('#rock');
+const paper = document.querySelector('#paper');
+const scissors = document.querySelector('#scissors');
 const restart = document.querySelector('#restart');
 const player = document.querySelector('#player')
 const computer = document.querySelector('#computer');
@@ -45,7 +46,7 @@ function playRound(playerSelection, computerSelection) {
         }
 
         return [plScore, compScore]
-    }
+}
 
 
 function game(rounds) {
@@ -54,35 +55,31 @@ function game(rounds) {
     let computerScore = 0;
 
     restart.addEventListener("click", () => location.reload())
-    
-    form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const item = input.value.toLowerCase();
-        let onlyLettersAndNumbers = (str) => Boolean(str.match(/^[a-zA-Z]+$/));
-    
-        if (!moves.includes(item) || !onlyLettersAndNumbers(item) || item === '') {
-            input.value = '';
-            alert('ENTER A VALID ITEM NAME');
-        } else {
-            player.innerText = item;
-            input.value = '';
-            
-            let scores = playRound(player.innerText, getComputerSelection(), playerScore, computerScore);
-            
-            playerScore += scores[0];
-            playerScoreText.innerText = playerScore;
-            computerScore += scores[1];
-            computerScoreText.innerText = computerScore;
-            
-            if (playerScore == rounds || computerScore == rounds) {
-                if (playerScore > computerScore){
-                    output.innerText = "YOU WON!";
-                } else {
-                    output.innerText = "YOU LOST!";
-                }
-                input.disabled = true;
-                submit.disabled = true;
+
+    rock.addEventListener("click", () => {
+        player.innerText = moves[1];
+    })
+    paper.addEventListener("click", () => {
+        player.innerText = moves[0];
+    })
+    scissors.addEventListener("click", () => {
+        player.innerText = moves[2];
+        
+    })
+    form.addEventListener('click', () => {
+        let scores = playRound(player.innerText, getComputerSelection(), playerScore, computerScore);    playerScore += scores[0];
+        playerScoreText.innerText = playerScore;
+        computerScore += scores[1];
+        computerScoreText.innerText = computerScore; 
+        if (playerScore == rounds || computerScore == rounds) {
+            if (playerScore > computerScore){
+                output.innerText = "YOU WIN!";
+            } else {
+                output.innerText = "COMPUTER WINS!";
             }
+        rock.disabled = true;
+        paper.disabled = true;
+        scissors.disabled = true;
         }
     })
 }
