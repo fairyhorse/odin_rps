@@ -1,0 +1,15 @@
+.stats-container {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.stats {
+    margin: 0 10px;
+    width: 80px;
+}
+
+.container, .form, .stats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
