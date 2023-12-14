@@ -4,17 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>rock, paper, scissors</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <form action="" id="form">
-        <label for="input">Type rock/paper/scissors</label><br>
-        <input type="text" name="" id="input">
-        <button type="submit">Submit</button>
-    </form>
-    <p id="player"> </p>
-    <p>vs.</p>
-    <p id="computer"> </p>
-    <p id="output"> </p>
+    <div class="form">
+        <form action="" id="form-move">
+            <label for="input-move">Type rock/paper/scissors</label><br>
+            <input type="text" name="" id="input-move">
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    
+    <hr>
+
+    <div class="container">
+        <div class="stats-container">
+            <div class="stats">
+                <span id="player">[You]</span><span id="player-score">0</span>
+            </div>
+            <span>vs.</span>
+            <div class="stats">
+                <span id="computer">[Computer]</span><span id="computer-score">0</span>
+            </div>
+        </div>
+        <div>
+            <span id="output">Outcome</span>
+        </div>
+    </div>
+
     <script src="rps.js"></script>
 </body>
 </html>
